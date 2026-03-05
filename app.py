@@ -11,7 +11,7 @@ def callback():
     signature = request.headers['X-Line-Singnature']
     body = request.get_data(as_text=true)
     try:
-        ้handler.handle(body, signature)
+        handler.handle(body, signature)
     except InvalidSignatureError:
         return 'Invalid signature', 400
     return 'OK'
@@ -28,7 +28,7 @@ def bmi():
     else:
         advice = "น้ำหนักเกิน ควรลดของมันและหวาน"
     return jsonify({
-        "bmi": bmi_value
+        "bmi": bmi_value,
         "advice": advice
     })
 import tensorflow as tf
@@ -60,7 +60,7 @@ def predict():
     predicted_class = class_names[index]
     calories = calories_dict.get(predicted_class, "ไม่พบข้อมูล")
     return jsonify({
-        "food": predicted_class
+        "food": predicted_class,
         "calories": calories
     })
     if __name__ = "__main__":
