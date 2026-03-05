@@ -48,7 +48,7 @@ calories_dict = {
     "4 ข้าวต้ม": 228,
 }
 
-@app.route("/predict", methods=["POST"]
+@app.route("/predict", methods=["POST"])
 def predict():
     file = request.files["image"]
     img = Image.open(file).convert("RBG")
