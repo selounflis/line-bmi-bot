@@ -3,4 +3,3 @@ numpy
 pillow
 line-bot-sdk
 gunicorn
-tensorflow
