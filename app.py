@@ -1,7 +1,7 @@
 from flask import Flask, request, jsonify
 app = Flask(__name__)
-line_bot_api = LineBotApi("ใส่ Channel access token ตรงนี้")
-้handler = WebhookHandler("ใส่ Channel secret ตรงนี้")
+line_bot_api = LineBotApi("YOUR_CHANNEL_ACCESS_TOKEN")
+handler = WebhookHandler("YOUR_CHANNEL_SECRET")
 def calculate_bmi(weight, height):
     height_m = height / 100
     bmi = weight / (height_m ** 2)
