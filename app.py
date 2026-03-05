@@ -1,5 +1,7 @@
 from flask import Flask, request, jsonify
 app = Flask(__name__)
+from linebot import LineBotApi, WebhookHandler
+from linebot.models import MessageEvent, TextMessage, TextSendMessage
 line_bot_api = LineBotApi("YOUR_CHANNEL_ACCESS_TOKEN")
 handler = WebhookHandler("YOUR_CHANNEL_SECRET")
 def calculate_bmi(weight, height):
