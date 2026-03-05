@@ -8,8 +8,8 @@ def calculate_bmi(weight, height):
     return round(bmi, 2)
 @app.route("/callback", methods=['POST'])
 def callback():
-    signature = request.headers['X-Line-Singnature']
-    body = request.get_data(as_text=true)
+    signature = request.headers['X-Line-Signature']
+    body = request.get_data(as_text=True)
     try:
         handler.handle(body, signature)
     except InvalidSignatureError:
@@ -21,7 +21,7 @@ def bmi():
     weight = float(data["weight"])
     height = float(data["height"])
     bmi_value = calculate_bmi(weight, height)
-    if mbi_value < 18.5:
+    if bmi_value < 18.5:
         advice = "น้ำหนักน้อย ควรเพิ่มพลังาน เช่น ข้าวมันไก่ต้ม หรือ ข้าวมันไก่ทอด"
     elif bmi_value < 23:
         advice = "ปกติ ควรรักษาสมดุล เช่น ข้าวต้ม"
@@ -36,7 +36,7 @@ import numpy as np
 from PIL import Image
 from linebot import LineBotApi, WebhookHandler
 from linebot.models import MessageEvent, ImageMessage, TextSendMessage
-from linebot.execptions import InvalidSignatureError
+from linebot.exceptions import InvalidSignatureError
 model = tf.keras.models.load_model("keras_model.h5")
 with open("labels.txt", "r", encoding="utf-8") as f:
     class_names = [line.strip() for line in f.readlines()]
@@ -51,17 +51,17 @@ calories_dict = {
 @app.route("/predict", methods=["POST"])
 def predict():
     file = request.files["image"]
-    img = Image.open(file).convert("RBG")
+    img = Image.open(file).convert("RGB")
     img = img.resize((224, 224))
     img_array = np.array(img) / 255.0
     img_array = np.expand_dims(img_array, axis=0)
     prediction = model.predict(img_array)
-    index = np.argax(prediction)
+    index = np.argmax(prediction)
     predicted_class = class_names[index]
     calories = calories_dict.get(predicted_class, "ไม่พบข้อมูล")
     return jsonify({
         "food": predicted_class,
         "calories": calories
     })
-    if __name__ = "__main__":
+    if __name__ == "__main__":
         app.run(debug=True)
